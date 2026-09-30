@@ -942,9 +942,9 @@ h1{
 
         </svg>
 
-        bottega veneta
+        shotaro
         <br>
-        mfw ss27
+        thailand
 
       </div>
 
@@ -1166,7 +1166,7 @@ const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRTuCHKfx
 
 ========================================================= */
 
-const PHOTO_URL = "./HNf_rlsacAA8hpG.jpg";
+const PHOTO_URL = "HNf_rlsacAA8hpG.jpg";
 
 /* =========================================================
    DEMO COMMENTS
@@ -1421,7 +1421,7 @@ function renderTabs(){
 
       renderTabs();
 
-      pick();
+      ();
 
     };
 
@@ -1487,19 +1487,40 @@ function setPhoto(item){
    RANDOM COMMENT
    ========================================================= */
 
-setTimeout(() => {
+function pick(){
 
-  t.textContent = item.text;
+  const pool = all.filter(
+    x => current === "ทั้งหมด" || x.cat === current
+  );
 
-  $("cat").textContent = item.cat;
+  if(!pool.length) return;
 
-  $("hashtags").textContent = item.hashtag || "";
+  let item;
 
-  t.classList.remove("out");
+  do{
+    item = pool[Math.floor(Math.random() * pool.length)];
+  }while(pool.length > 1 && item === last);
 
-  updateTweetLink();
+  last = item;
 
-}, 180);
+  const t = $("text");
+
+  t.classList.add("out");
+
+  setTimeout(() => {
+
+    t.textContent = item.text;
+    $("cat").textContent = item.cat;
+    $("hashtags").textContent = item.hashtag || "";
+
+    t.classList.remove("out");
+
+    updateTweetLink();
+
+  }, 180);
+
+  setPhoto(item);
+}
 
 
 /* =========================================================
