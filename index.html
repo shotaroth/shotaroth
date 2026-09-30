@@ -1380,56 +1380,33 @@ const demo = () => {
 function renderTabs(){
 
   const cats = [
-
     "ทั้งหมด",
-
-    ...new Set(
-      all.map(
-        x => x.cat
-      )
-    )
-
+    ...new Set(all.map(x => x.cat))
   ];
-
 
   $("tabs").innerHTML = "";
 
-
   cats.forEach(c => {
 
-    const b =
-      document.createElement("button");
+    const b = document.createElement("button");
 
-
-    b.className =
-      "tab";
-
-
-    b.textContent =
-      c;
-
+    b.className = "tab";
+    b.textContent = c;
 
     b.setAttribute(
       "aria-pressed",
       c === current
     );
 
-
     b.onclick = () => {
-
       current = c;
-
       renderTabs();
-
-      ();
-
+      pick();
     };
-
 
     $("tabs").appendChild(b);
 
   });
-
 }
 
 
