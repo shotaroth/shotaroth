@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -193,16 +192,22 @@ body{
 
   background-size:24px 24px;
 
+  /*
+    เดิมใช้ bottom padding 42%
+    ตอนนี้ลดลง เพราะรูปจะวางทับอยู่บนกระดาษ
+  */
   padding:
     34px
     26px
-    42%;
+    155px;
 
   box-shadow:
     0 18px 40px -14px rgba(70,0,0,.38),
     0 2px 6px rgba(70,0,0,.12);
 
   border-radius:3px;
+
+  overflow:visible;
 }
 
 
@@ -333,20 +338,6 @@ h1{
   color:var(--blood-red);
 }
 
-.hashtags{
-  margin:-12px 0 22px 14px;
-
-  font-family:var(--hand);
-  font-size:14px;
-  font-weight:600;
-
-  color:var(--toffee-brown);
-
-  line-height:1.6;
-
-  word-break:break-word;
-}
-
 .tab[aria-pressed="true"]{
   color:var(--honeydew);
 
@@ -391,6 +382,25 @@ h1{
 
 .text.out{
   opacity:0;
+}
+
+
+/* =========================================================
+   HASHTAGS
+   ========================================================= */
+
+.hashtags{
+  margin:-12px 0 22px 14px;
+
+  font-family:var(--hand);
+  font-size:14px;
+  font-weight:600;
+
+  color:var(--toffee-brown);
+
+  line-height:1.6;
+
+  word-break:break-word;
 }
 
 
@@ -463,6 +473,12 @@ h1{
   gap:12px 22px;
 
   margin-left:14px;
+
+  /*
+    เว้นด้านขวาเล็กน้อย
+    เผื่อรูปโพลารอยด์
+  */
+  padding-right:10px;
 }
 
 .btn{
@@ -539,6 +555,8 @@ h1{
     0
     14px;
 
+  max-width:52%;
+
   font-size:12px;
 
   color:var(--toffee-brown);
@@ -555,7 +573,7 @@ h1{
   position:absolute;
 
   left:40px;
-  bottom:9%;
+  bottom:48px;
 
   font-family:var(--script);
 
@@ -563,11 +581,13 @@ h1{
 
   line-height:1.2;
 
-  max-width:50%;
+  max-width:38%;
 
   transform:rotate(-3deg);
 
   color:var(--blood-red);
+
+  z-index:2;
 }
 
 .note::after{
@@ -589,67 +609,80 @@ h1{
 
 
 /* =========================================================
-   PHOTO / POLAROID
+   SCREEN READER ONLY
    ========================================================= */
 
 .sr{
   position:absolute;
+
   width:1px;
   height:1px;
+
   overflow:hidden;
+
   clip:rect(0 0 0 0);
+
+  white-space:nowrap;
 }
 
 
+/* =========================================================
+   POLAROID
+   ========================================================= */
+
 /*
-  เปลี่ยนจากกรอบรูปใหญ่/ยาว
-  เป็นโพลารอยด์ขนาดกะทัดรัด
+  สำคัญ:
+  รูปอยู่ข้างใน .notebook แล้ว
+  และใช้ position:absolute
+
+  เพราะฉะนั้นรูปจะ "ทับ" กระดาษ
+  และไม่เพิ่มความสูงของหน้า
 */
 
 .phone{
-  display:block;
+  position:absolute;
 
-  width:min(270px,72vw);
+  right:34px;
+  bottom:28px;
 
-  margin:
-    34px
-    auto
-    22px;
+  width:185px;
+
+  margin:0;
 
   padding:
-    12px
-    12px
-    48px;
+    9px
+    9px
+    34px;
 
   background:#fdfcf8;
 
-  border-radius:3px;
+  border-radius:2px;
 
   box-shadow:
-    0 2px 4px rgba(0,0,0,.12),
-    0 14px 30px rgba(0,0,0,.16);
+    0 3px 5px rgba(0,0,0,.12),
+    0 12px 24px rgba(0,0,0,.18);
 
-  transform:rotate(-3deg);
+  transform:rotate(5deg);
+
+  transform-origin:center;
+
+  cursor:pointer;
+
+  z-index:5;
 
   transition:
     transform .25s ease,
     box-shadow .25s ease;
-
-  cursor:pointer;
-
-  position:relative;
-
-  z-index:2;
 }
 
 .phone:hover{
   transform:
-    rotate(-1deg)
+    rotate(2deg)
     translateY(-4px);
 
   box-shadow:
-    0 3px 6px rgba(0,0,0,.12),
-    0 18px 34px rgba(0,0,0,.18);
+    0 4px 7px rgba(0,0,0,.14),
+    0 16px 30px rgba(0,0,0,.2);
 }
 
 .phone:focus-within{
@@ -662,9 +695,14 @@ h1{
 }
 
 
+/* =========================================================
+   PHOTO AREA
+   ========================================================= */
+
 /*
-  รูปไม่ยาวเกินไป
-  4:5 ให้ฟีลรูปถ่าย / โพลารอยด์
+  ใช้ 4:5
+  ไม่ยาวแบบรูป portrait เต็ม ๆ
+  แต่ก็ไม่ตันแบบ 1:1
 */
 
 .screen{
@@ -674,19 +712,14 @@ h1{
 
   aspect-ratio:4 / 5;
 
-  background:#e9e6df;
-
   overflow:hidden;
+
+  background:#e9e6df;
 
   box-shadow:
     inset 0 0 0 1px rgba(0,0,0,.08);
 }
 
-
-/*
-  cover เพื่อให้เต็มกรอบ
-  object-position 30% ช่วยไม่ให้หน้าคนถูกตัดง่าย
-*/
 
 #photo{
   position:absolute;
@@ -699,15 +732,23 @@ h1{
   display:block;
 
   object-fit:cover;
+
+  /*
+    เลื่อน focus ขึ้นด้านบนเล็กน้อย
+    เหมาะกับรูปคน
+  */
   object-position:center 30%;
 }
+
 
 #photo:not([src]){
   display:none;
 }
 
 
-/* ข้อความตอนยังไม่มีรูป */
+/* =========================================================
+   EMPTY PHOTO
+   ========================================================= */
 
 .empty{
   position:absolute;
@@ -720,11 +761,15 @@ h1{
   align-items:center;
   justify-content:center;
 
-  gap:10px;
+  gap:8px;
+
+  padding:12px;
+
+  text-align:center;
 
   color:#8a857a;
 
-  font-size:15px;
+  font-size:13px;
 }
 
 .screen:has(#photo[src]) .empty{
@@ -732,8 +777,8 @@ h1{
 }
 
 .empty .doodle{
-  width:36px;
-  height:36px;
+  width:30px;
+  height:30px;
 
   fill:none;
 
@@ -747,7 +792,6 @@ h1{
    ACCESSIBILITY
    ========================================================= */
 
-.phone:focus-within,
 .btn:focus-visible,
 .tab:focus-visible{
   outline:
@@ -780,7 +824,7 @@ h1{
       16px
     );
 
-  z-index:9;
+  z-index:20;
 
   background:var(--blood-red);
 
@@ -829,14 +873,24 @@ h1{
     padding-right:14px;
   }
 
-  .notebook{
-    padding-left:20px;
-    padding-right:18px;
+
+  .stage{
+    padding-top:24px;
   }
+
+
+  .notebook{
+    padding:
+      28px
+      18px
+      135px;
+  }
+
 
   .top{
     padding-left:8px;
   }
+
 
   .tabs,
   .text,
@@ -846,41 +900,117 @@ h1{
     margin-left:8px;
   }
 
+
+  h1{
+    font-size:clamp(44px,14vw,62px);
+  }
+
+
+  .badge{
+    font-size:17px;
+  }
+
+
+  .text{
+    font-size:clamp(19px,5.5vw,25px);
+
+    line-height:1.65;
+
+    min-height:4.8em;
+
+    margin-top:24px;
+  }
+
+
+  .actions{
+    gap:10px 16px;
+
+    padding-right:0;
+  }
+
+
+  .btn{
+    font-size:14px;
+  }
+
+
+  .btn.main{
+    padding:
+      9px
+      20px;
+  }
+
+
   /*
-    ไม่ใช้ width:39% แล้ว
-    เพราะทำให้รูปเล็ก/แคบเกินไป
+    รูปยังทับอยู่บนกระดาษ
+    แต่ลดขนาดลงสำหรับมือถือ
   */
 
   .phone{
-    width:min(230px,68vw);
+    width:140px;
 
-    margin:
-      30px
-      auto
-      18px;
+    right:18px;
+    bottom:20px;
 
     padding:
-      10px
-      10px
-      42px;
+      7px
+      7px
+      26px;
 
-    transform:rotate(-2.5deg);
+    transform:rotate(5deg);
   }
+
+
+  .phone:hover{
+    transform:rotate(3deg);
+  }
+
 
   .note{
-    left:30px;
+    left:24px;
+    bottom:42px;
+
+    max-width:38%;
+
+    font-size:19px;
   }
+
+
+  .status{
+    max-width:48%;
+  }
+
 }
 
 
 /* =========================================================
-   SMALL MOBILE
+   VERY SMALL MOBILE
    ========================================================= */
 
 @media(max-width:380px){
 
+  .notebook{
+    padding-bottom:125px;
+  }
+
+
   .phone{
-    width:min(215px,70vw);
+    width:125px;
+
+    right:14px;
+    bottom:18px;
+  }
+
+
+  .note{
+    left:20px;
+
+    font-size:17px;
+  }
+
+
+  .actions{
+    gap:9px 13px;
   }
 
 }
@@ -906,9 +1036,15 @@ h1{
 
 <div class="stage">
 
-  <!-- กระดาษด้านหลัง -->
+
+  <!-- =====================================================
+       BACKGROUND PAPER
+       ===================================================== -->
+
   <div class="paper p1"></div>
+
   <div class="paper p2"></div>
+
 
 
   <!-- =====================================================
@@ -917,18 +1053,27 @@ h1{
 
   <article class="notebook">
 
+
+    <!-- RINGS -->
+
     <div
       class="rings"
       aria-hidden="true">
     </div>
 
 
-    <!-- HEADER -->
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
 
     <div class="top">
 
+
       <h1>
+
         shotaro
+
 
         <svg
           class="doodle"
@@ -951,7 +1096,9 @@ h1{
       </h1>
 
 
+
       <div class="badge">
+
 
         <svg
           class="doodle"
@@ -970,16 +1117,21 @@ h1{
 
         </svg>
 
+
         shotaro
         <br>
         thailand
 
       </div>
 
+
     </div>
 
 
-    <!-- CATEGORY -->
+
+    <!-- =====================================================
+         CATEGORY
+         ===================================================== -->
 
     <nav
       class="tabs"
@@ -988,7 +1140,10 @@ h1{
     </nav>
 
 
-    <!-- COMMENT -->
+
+    <!-- =====================================================
+         COMMENT
+         ===================================================== -->
 
     <p
       class="text"
@@ -999,20 +1154,29 @@ h1{
 
     </p>
 
+
+
+    <!-- HASHTAGS -->
+
     <p
       class="hashtags"
       id="hashtags">
     </p>
 
 
-    <!-- CATEGORY LABEL -->
+
+    <!-- =====================================================
+         CATEGORY LABEL
+         ===================================================== -->
 
     <div class="catline">
+
 
       <p
         class="cat"
         id="cat">
       </p>
+
 
       <svg
         class="doodle"
@@ -1030,12 +1194,17 @@ h1{
 
       </svg>
 
+
     </div>
 
 
-    <!-- BUTTONS -->
+
+    <!-- =====================================================
+         BUTTONS
+         ===================================================== -->
 
     <div class="actions">
+
 
       <button
         class="btn main"
@@ -1046,6 +1215,7 @@ h1{
       </button>
 
 
+
       <button
         class="btn"
         id="copy">
@@ -1053,6 +1223,7 @@ h1{
         ก็อปคอมเม้น
 
       </button>
+
 
 
       <a
@@ -1066,6 +1237,7 @@ h1{
       </a>
 
 
+
       <label
         class="btn"
         for="file">
@@ -1074,14 +1246,23 @@ h1{
 
       </label>
 
+
     </div>
 
+
+
+    <!-- STATUS -->
 
     <p
       class="status"
       id="status">
     </p>
 
+
+
+    <!-- =====================================================
+         NOTE
+         ===================================================== -->
 
     <div class="note">
 
@@ -1091,66 +1272,83 @@ h1{
 
     </div>
 
-  </article>
 
 
-  <!-- =====================================================
-       POLAROID PHOTO
-       ===================================================== -->
+    <!-- =====================================================
+         POLAROID
+         อยู่ข้างใน NOTEBOOK
+         เพราะฉะนั้นจะทับอยู่บนกระดาษ
+         ===================================================== -->
 
-  <label
-    class="phone"
-    for="file"
-    aria-label="แตะเพื่อเลือกรูป">
-
-    <input
-      class="sr"
-      type="file"
-      id="file"
-      accept="image/*"
-    >
+    <label
+      class="phone"
+      for="file"
+      aria-label="แตะเพื่อเลือกรูป">
 
 
-    <div
-      class="screen"
-      id="screen">
-
-      <img
-        id="photo"
-        alt=""
+      <input
+        class="sr"
+        type="file"
+        id="file"
+        accept="image/*"
       >
 
 
-      <div class="empty">
 
-        <svg
-          class="doodle"
-          viewBox="0 0 40 40"
-          aria-hidden="true">
+      <div
+        class="screen"
+        id="screen">
 
-          <path
-            d="
-              M20 3V37
-              M5 20H35
-              M9 9L31 31
-              M31 9L9 31
-            "
-          />
 
-        </svg>
+        <img
+          id="photo"
+          alt=""
+        >
 
-        แตะเพื่อใส่รูป
+
+
+        <div class="empty">
+
+
+          <svg
+            class="doodle"
+            viewBox="0 0 40 40"
+            aria-hidden="true">
+
+            <path
+              d="
+                M20 3V37
+                M5 20H35
+                M9 9L31 31
+                M31 9L9 31
+              "
+            />
+
+          </svg>
+
+
+          แตะเพื่อใส่รูป
+
+
+        </div>
+
 
       </div>
 
-    </div>
 
-  </label>
+    </label>
+
+
+  </article>
+
 
 </div>
 
 
-<!-- TOAST -->
+
+<!-- =====================================================
+     TOAST
+     ===================================================== -->
 
 <div
   class="toast"
@@ -1160,6 +1358,7 @@ h1{
   ก็อปแล้ว
 
 </div>
+
 
 
 <script>
@@ -1180,6 +1379,7 @@ const SHEET_CSV_URL =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vRTuCHKfx1--6EnJf6H8Es9odYJjnoyJ6NF5tV9mllxRLrFRztl476Swqu2cFa7ej7AzSBjEm2yKF-l/pub?output=csv";
 
 
+
 /* =========================================================
    DEFAULT PHOTO
    ========================================================= */
@@ -1188,11 +1388,13 @@ const PHOTO_URL =
   "HNf_rlsacAA8hpG.jpg";
 
 
+
 /* =========================================================
    DEMO COMMENTS
    ========================================================= */
 
 const DEMO = [];
+
 
 
 /* =========================================================
@@ -1210,6 +1412,7 @@ let current = "ทั้งหมด";
 let last = null;
 
 let userPhoto = null;
+
 
 
 /* =========================================================
@@ -1282,6 +1485,7 @@ function parseCSV(t){
 
       }
 
+
       row.push(cell);
 
       cell = "";
@@ -1318,11 +1522,13 @@ function parseCSV(t){
 }
 
 
+
 /* =========================================================
    LOAD COMMENTS
    ========================================================= */
 
 async function load(){
+
 
   const demo = () => {
 
@@ -1341,8 +1547,10 @@ async function load(){
 
     demo();
 
+
     $("status").textContent =
       "ตอนนี้ใช้คอมเม้นตัวอย่าง — ใส่ลิงก์ Google Sheet ใน SHEET_CSV_URL เพื่อดึงข้อมูลจริง";
+
 
     return;
 
@@ -1350,6 +1558,7 @@ async function load(){
 
 
   try{
+
 
     const res =
       await fetch(SHEET_CSV_URL);
@@ -1369,7 +1578,9 @@ async function load(){
 
 
     all = rows
+
       .map(r => ({
+
         cat:
           (r[0] || "").trim() ||
           "อื่น ๆ",
@@ -1379,7 +1590,9 @@ async function load(){
 
         hashtag:
           (r[2] || "").trim()
+
       }))
+
       .filter(x => x.text);
 
 
@@ -1393,7 +1606,9 @@ async function load(){
 
   catch(e){
 
+
     demo();
+
 
     $("status").textContent =
       "โหลด Google Sheet ไม่สำเร็จ ตรวจสอบว่าเผยแพร่เป็น CSV แล้ว — ตอนนี้แสดงคอมเม้นตัวอย่างแทน";
@@ -1403,17 +1618,22 @@ async function load(){
 }
 
 
+
 /* =========================================================
    CATEGORY TABS
    ========================================================= */
 
 function renderTabs(){
 
+
   const cats = [
+
     "ทั้งหมด",
+
     ...new Set(
       all.map(x => x.cat)
     )
+
   ];
 
 
@@ -1421,6 +1641,7 @@ function renderTabs(){
 
 
   cats.forEach(c => {
+
 
     const b =
       document.createElement("button");
@@ -1442,9 +1663,12 @@ function renderTabs(){
 
     b.onclick = () => {
 
+
       current = c;
 
+
       renderTabs();
+
 
       pick();
 
@@ -1458,17 +1682,24 @@ function renderTabs(){
 }
 
 
+
 /* =========================================================
    PHOTO
    ========================================================= */
 
 function setPhoto(item){
 
+
   const src =
+
     userPhoto
+
     ||
+
     (item && item.img)
+
     ||
+
     PHOTO_URL;
 
 
@@ -1482,9 +1713,12 @@ function setPhoto(item){
 
   if(!src){
 
+
     screen.classList.remove("has");
 
+
     img.removeAttribute("src");
+
 
     return;
 
@@ -1510,21 +1744,31 @@ function setPhoto(item){
 }
 
 
+
 /* =========================================================
    RANDOM COMMENT
    ========================================================= */
 
 function pick(){
 
+
   const pool = all.filter(
+
     x =>
-      current === "ทั้งหมด" ||
+
+      current === "ทั้งหมด"
+
+      ||
+
       x.cat === current
+
   );
 
 
   if(!pool.length){
+
     return;
+
   }
 
 
@@ -1533,17 +1777,30 @@ function pick(){
 
   do{
 
+
     item =
+
       pool[
+
         Math.floor(
+
           Math.random() *
+
           pool.length
+
         )
+
       ];
 
+
   }while(
-    pool.length > 1 &&
+
+    pool.length > 1
+
+    &&
+
     item === last
+
   );
 
 
@@ -1558,6 +1815,7 @@ function pick(){
 
 
   setTimeout(() => {
+
 
     t.textContent =
       item.text;
@@ -1576,6 +1834,7 @@ function pick(){
 
     updateTweetLink();
 
+
   },180);
 
 
@@ -1584,11 +1843,13 @@ function pick(){
 }
 
 
+
 /* =========================================================
    TOAST
    ========================================================= */
 
 function toast(msg){
+
 
   const t =
     $("toast");
@@ -1607,13 +1868,18 @@ function toast(msg){
 
 
   toast.id =
+
     setTimeout(
+
       () =>
         t.classList.remove("show"),
+
       1600
+
     );
 
 }
+
 
 
 /* =========================================================
@@ -1622,28 +1888,39 @@ function toast(msg){
 
 async function copy(){
 
+
   if(!last){
+
     return;
+
   }
 
 
   const content = [
+
     last.text,
+
     last.hashtag
+
   ]
+
   .filter(Boolean)
+
   .join("\n\n");
 
 
   try{
 
+
     await navigator.clipboard.writeText(
       content
     );
 
+
   }
 
   catch(e){
+
 
     const a =
       document.createElement(
@@ -1678,11 +1955,13 @@ async function copy(){
 }
 
 
+
 /* =========================================================
    USER PHOTO
    ========================================================= */
 
 $("file").onchange = e => {
+
 
   const f =
     e.target.files[0];
@@ -1696,6 +1975,7 @@ $("file").onchange = e => {
 
 
   if(userPhoto){
+
 
     URL.revokeObjectURL(
       userPhoto
@@ -1718,30 +1998,44 @@ $("file").onchange = e => {
 };
 
 
+
 /* =========================================================
    X SHARE
    ========================================================= */
 
 function updateTweetLink(){
 
+
   if(!last){
+
     return;
+
   }
 
 
   const content = [
+
     last.text,
+
     last.hashtag
+
   ]
+
   .filter(Boolean)
+
   .join("\n\n");
 
 
   $("tweet").href =
-    "https://x.com/intent/tweet?text=" +
+
+    "https://x.com/intent/tweet?text="
+
+    +
+
     encodeURIComponent(content);
 
 }
+
 
 
 /* =========================================================
@@ -1756,15 +2050,19 @@ $("copy").onclick =
   copy;
 
 
+
 /* =========================================================
    INIT
    ========================================================= */
 
 load().then(() => {
 
+
   renderTabs();
 
+
   pick();
+
 
 });
 
@@ -1772,4 +2070,3 @@ load().then(() => {
 
 </body>
 </html>
-```
