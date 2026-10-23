@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -588,101 +589,163 @@ h1{
 
 
 /* =========================================================
-   PHONE
+   PHOTO / POLAROID
    ========================================================= */
+
 .sr{
   position:absolute;
-  width:1px;height:1px;
+  width:1px;
+  height:1px;
   overflow:hidden;
   clip:rect(0 0 0 0);
 }
 
-/* กรอบโพลารอยด์ */
+
+/*
+  เปลี่ยนจากกรอบรูปใหญ่/ยาว
+  เป็นโพลารอยด์ขนาดกะทัดรัด
+*/
+
 .phone{
   display:block;
-  width:min(320px, 86vw);
-  margin:40px auto;
-  padding:16px 16px 64px;      /* ขอบล่างหนาแบบโพลารอยด์ */
-  background:#fdfcf8;
-  border-radius:4px;
-  box-shadow:
-    0 1px 2px rgba(0,0,0,.15),
-    0 12px 28px rgba(0,0,0,.18);
-  transform:rotate(-2deg);
-  transition:transform .25s ease;
-  cursor:pointer;
-  position:relative;
-}
-.phone:hover{ transform:rotate(0deg) translateY(-4px); }
-.phone:focus-within{ outline:2px solid #888; outline-offset:4px; }
 
-/* พื้นที่รูป (จัตุรัส) */
+  width:min(270px,72vw);
+
+  margin:
+    34px
+    auto
+    22px;
+
+  padding:
+    12px
+    12px
+    48px;
+
+  background:#fdfcf8;
+
+  border-radius:3px;
+
+  box-shadow:
+    0 2px 4px rgba(0,0,0,.12),
+    0 14px 30px rgba(0,0,0,.16);
+
+  transform:rotate(-3deg);
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease;
+
+  cursor:pointer;
+
+  position:relative;
+
+  z-index:2;
+}
+
+.phone:hover{
+  transform:
+    rotate(-1deg)
+    translateY(-4px);
+
+  box-shadow:
+    0 3px 6px rgba(0,0,0,.12),
+    0 18px 34px rgba(0,0,0,.18);
+}
+
+.phone:focus-within{
+  outline:
+    2px
+    solid
+    var(--blood-red);
+
+  outline-offset:4px;
+}
+
+
+/*
+  รูปไม่ยาวเกินไป
+  4:5 ให้ฟีลรูปถ่าย / โพลารอยด์
+*/
+
 .screen{
   position:relative;
-  aspect-ratio:1 / 1;
+
+  width:100%;
+
+  aspect-ratio:4 / 5;
+
   background:#e9e6df;
+
   overflow:hidden;
-  box-shadow:inset 0 0 0 1px rgba(0,0,0,.08);
+
+  box-shadow:
+    inset 0 0 0 1px rgba(0,0,0,.08);
 }
+
+
+/*
+  cover เพื่อให้เต็มกรอบ
+  object-position 30% ช่วยไม่ให้หน้าคนถูกตัดง่าย
+*/
+
 #photo{
   position:absolute;
+
   inset:0;
-  width:100%;height:100%;
+
+  width:100%;
+  height:100%;
+
+  display:block;
+
   object-fit:cover;
+  object-position:center 30%;
 }
-#photo:not([src]){ display:none; }
+
+#photo:not([src]){
+  display:none;
+}
+
 
 /* ข้อความตอนยังไม่มีรูป */
+
 .empty{
   position:absolute;
+
   inset:0;
+
   display:flex;
   flex-direction:column;
+
   align-items:center;
   justify-content:center;
+
   gap:10px;
+
   color:#8a857a;
+
   font-size:15px;
 }
-.screen:has(#photo[src]) .empty{ display:none; }
 
-.doodle{
-  width:36px;height:36px;
+.screen:has(#photo[src]) .empty{
+  display:none;
+}
+
+.empty .doodle{
+  width:36px;
+  height:36px;
+
   fill:none;
+
   stroke:currentColor;
   stroke-width:2;
   stroke-linecap:round;
 }
 
 
-
-/* =========================================================
-   PHONE NOTCH
-   ========================================================= */
-
-.phone::after{
-  content:"";
-
-  position:absolute;
-
-  top:3.2%;
-  left:50%;
-
-  width:26%;
-  height:2.2%;
-
-  transform:translateX(-50%);
-
-  background:var(--blood-red);
-
-  border-radius:99px;
-}
-
-
 /* =========================================================
    ACCESSIBILITY
    ========================================================= */
-
 
 .phone:focus-within,
 .btn:focus-visible,
@@ -783,13 +846,43 @@ h1{
     margin-left:8px;
   }
 
+  /*
+    ไม่ใช้ width:39% แล้ว
+    เพราะทำให้รูปเล็ก/แคบเกินไป
+  */
+
   .phone{
-    width:39%;
+    width:min(230px,68vw);
+
+    margin:
+      30px
+      auto
+      18px;
+
+    padding:
+      10px
+      10px
+      42px;
+
+    transform:rotate(-2.5deg);
   }
 
   .note{
     left:30px;
   }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media(max-width:380px){
+
+  .phone{
+    width:min(215px,70vw);
+  }
+
 }
 
 
@@ -906,7 +999,10 @@ h1{
 
     </p>
 
-    <p class="hashtags" id="hashtags"></p>
+    <p
+      class="hashtags"
+      id="hashtags">
+    </p>
 
 
     <!-- CATEGORY LABEL -->
@@ -989,7 +1085,7 @@ h1{
 
     <div class="note">
 
-      แตะที่โทรศัพท์
+      แตะที่รูป
       <br>
       เพื่อเปลี่ยนรูป
 
@@ -999,7 +1095,7 @@ h1{
 
 
   <!-- =====================================================
-       PHONE
+       POLAROID PHOTO
        ===================================================== -->
 
   <label
@@ -1074,34 +1170,23 @@ h1{
 
    A = หมวดหมู่
    B = คอมเม้น
-   C = ลิงก์รูป (ไม่บังคับ)
+   C = Hashtag
 
    แถวแรกเป็น Header
 
-   Google Sheet
-   File > Share > Publish to web
-   เลือก CSV
-   แล้วนำ URL มาใส่ด้านล่าง
-
 ========================================================= */
 
-const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRTuCHKfx1--6EnJf6H8Es9odYJjnoyJ6NF5tV9mllxRLrFRztl476Swqu2cFa7ej7AzSBjEm2yKF-l/pub?output=csv";
+const SHEET_CSV_URL =
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vRTuCHKfx1--6EnJf6H8Es9odYJjnoyJ6NF5tV9mllxRLrFRztl476Swqu2cFa7ej7AzSBjEm2yKF-l/pub?output=csv";
 
 
 /* =========================================================
    DEFAULT PHOTO
+   ========================================================= */
 
-   ตัวอย่าง
+const PHOTO_URL =
+  "HNf_rlsacAA8hpG.jpg";
 
-   const PHOTO_URL = "photo.jpg";
-
-   หรือ
-
-   const PHOTO_URL = "https://example.com/photo.jpg";
-
-========================================================= */
-
-const PHOTO_URL = "HNf_rlsacAA8hpG.jpg";
 
 /* =========================================================
    DEMO COMMENTS
@@ -1238,13 +1323,18 @@ function parseCSV(t){
    ========================================================= */
 
 async function load(){
-const demo = () => {
-  all = DEMO.map(([cat, text, hashtag]) => ({
-    cat,
-    text,
-    hashtag
-  }));
-};
+
+  const demo = () => {
+
+    all = DEMO.map(
+      ([cat, text, hashtag]) => ({
+        cat,
+        text,
+        hashtag
+      })
+    );
+
+  };
 
 
   if(!SHEET_CSV_URL){
@@ -1278,13 +1368,19 @@ const demo = () => {
       ).slice(1);
 
 
-   all = rows
-  .map(r => ({
-    cat: (r[0] || "").trim() || "อื่น ๆ",
-    text: (r[1] || "").trim(),
-    hashtag: (r[2] || "").trim()
-  }))
-  .filter(x => x.text);
+    all = rows
+      .map(r => ({
+        cat:
+          (r[0] || "").trim() ||
+          "อื่น ๆ",
+
+        text:
+          (r[1] || "").trim(),
+
+        hashtag:
+          (r[2] || "").trim()
+      }))
+      .filter(x => x.text);
 
 
     if(!all.length){
@@ -1298,7 +1394,6 @@ const demo = () => {
   catch(e){
 
     demo();
-
 
     $("status").textContent =
       "โหลด Google Sheet ไม่สำเร็จ ตรวจสอบว่าเผยแพร่เป็น CSV แล้ว — ตอนนี้แสดงคอมเม้นตัวอย่างแทน";
@@ -1316,32 +1411,50 @@ function renderTabs(){
 
   const cats = [
     "ทั้งหมด",
-    ...new Set(all.map(x => x.cat))
+    ...new Set(
+      all.map(x => x.cat)
+    )
   ];
+
 
   $("tabs").innerHTML = "";
 
+
   cats.forEach(c => {
 
-    const b = document.createElement("button");
+    const b =
+      document.createElement("button");
 
-    b.className = "tab";
-    b.textContent = c;
+
+    b.className =
+      "tab";
+
+
+    b.textContent =
+      c;
+
 
     b.setAttribute(
       "aria-pressed",
       c === current
     );
 
+
     b.onclick = () => {
+
       current = c;
+
       renderTabs();
+
       pick();
+
     };
+
 
     $("tabs").appendChild(b);
 
   });
+
 }
 
 
@@ -1370,6 +1483,8 @@ function setPhoto(item){
   if(!src){
 
     screen.classList.remove("has");
+
+    img.removeAttribute("src");
 
     return;
 
@@ -1402,36 +1517,70 @@ function setPhoto(item){
 function pick(){
 
   const pool = all.filter(
-    x => current === "ทั้งหมด" || x.cat === current
+    x =>
+      current === "ทั้งหมด" ||
+      x.cat === current
   );
 
-  if(!pool.length) return;
+
+  if(!pool.length){
+    return;
+  }
+
 
   let item;
 
+
   do{
-    item = pool[Math.floor(Math.random() * pool.length)];
-  }while(pool.length > 1 && item === last);
+
+    item =
+      pool[
+        Math.floor(
+          Math.random() *
+          pool.length
+        )
+      ];
+
+  }while(
+    pool.length > 1 &&
+    item === last
+  );
+
 
   last = item;
 
-  const t = $("text");
+
+  const t =
+    $("text");
+
 
   t.classList.add("out");
 
+
   setTimeout(() => {
 
-    t.textContent = item.text;
-    $("cat").textContent = item.cat;
-    $("hashtags").textContent = item.hashtag || "";
+    t.textContent =
+      item.text;
+
+
+    $("cat").textContent =
+      item.cat;
+
+
+    $("hashtags").textContent =
+      item.hashtag || "";
+
 
     t.classList.remove("out");
 
+
     updateTweetLink();
 
-  }, 180);
+  },180);
+
 
   setPhoto(item);
+
 }
 
 
@@ -1473,7 +1622,10 @@ function toast(msg){
 
 async function copy(){
 
-  if(!last) return;
+  if(!last){
+    return;
+  }
+
 
   const content = [
     last.text,
@@ -1482,26 +1634,47 @@ async function copy(){
   .filter(Boolean)
   .join("\n\n");
 
+
   try{
 
-    await navigator.clipboard.writeText(content);
+    await navigator.clipboard.writeText(
+      content
+    );
 
-  }catch(e){
+  }
 
-    const a = document.createElement("textarea");
+  catch(e){
 
-    a.value = content;
+    const a =
+      document.createElement(
+        "textarea"
+      );
+
+
+    a.value =
+      content;
+
 
     document.body.appendChild(a);
 
+
     a.select();
 
-    document.execCommand("copy");
+
+    document.execCommand(
+      "copy"
+    );
+
 
     a.remove();
+
   }
 
-  toast("ก็อปคอมเม้น + Hashtag แล้วค่ะ!");
+
+  toast(
+    "ก็อปคอมเม้น + Hashtag แล้วค่ะ!"
+  );
+
 }
 
 
@@ -1538,13 +1711,23 @@ $("file").onchange = e => {
   setPhoto(last);
 
 
-  toast("เปลี่ยนรูปแล้ว");
+  toast(
+    "เปลี่ยนรูปแล้ว"
+  );
 
 };
 
+
+/* =========================================================
+   X SHARE
+   ========================================================= */
+
 function updateTweetLink(){
 
-  if(!last) return;
+  if(!last){
+    return;
+  }
+
 
   const content = [
     last.text,
@@ -1553,9 +1736,11 @@ function updateTweetLink(){
   .filter(Boolean)
   .join("\n\n");
 
+
   $("tweet").href =
     "https://x.com/intent/tweet?text=" +
     encodeURIComponent(content);
+
 }
 
 
@@ -1587,3 +1772,4 @@ load().then(() => {
 
 </body>
 </html>
+```
